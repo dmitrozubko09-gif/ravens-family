@@ -1,7 +1,10 @@
-import json
+from flask import Flask, jsonify
 import os
+import json
 import urllib.request
 import urllib.error
+
+app = Flask(__name__)
 
 BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN", "")
 GUILD_ID = os.environ.get("DISCORD_GUILD_ID", "")
@@ -90,48 +93,18 @@ def get_members():
     return result
 
 
-def get_online_status():
-    data = discord_request(f"/guilds/{GUILD_ID}?with_counts=true")
-    if data:
-        return {
-            "online": data.get("approximate_presence_count", 0),
-            "total":  data.get("approximate_member_count", 0),
-        }
-    return {"online": 0, "total": 0}
+@app.route("/api/members")
+@app.route("/")
+def members():
+    data = get_members()
+    counts_data = discord_request(f"/guilds/{GUILD_ID}?with_counts=true")
+    online = counts_data.get("approximate_presence_count", 0) if counts_data else 0
+    total = counts_data.get("approximate_member_count", 0) if counts_data else 0
+    response = jsonify({"members": data, "online": online, "total": total})
+    response.headers["Access-Control-Allow-Origin"] = ALLOWED_ORIGIN
+    return response
 
 
-def app(environ, start_response):
-    path = environ.get("PATH_INFO", "/")
-    method = environ.get("REQUEST_METHOD", "GET")
-
-    cors_headers = [
-        ("Access-Control-Allow-Origin", ALLOWED_ORIGIN),
-        ("Access-Control-Allow-Methods", "GET, OPTIONS"),
-        ("Access-Control-Allow-Headers", "Content-Type"),
-        ("Cache-Control", "no-cache"),
-    ]
-
-    if method == "OPTIONS":
-        start_response("200 OK", cors_headers)
-        return [b""]
-
-    if path in ("/api/members", "/"):
-        members = get_members()
-        counts = get_online_status()
-        payload = json.dumps({
-            "members": members,
-            "online":  counts["online"],
-            "total":   counts["total"],
-        }, ensure_ascii=False).encode("utf-8")
-        start_response("200 OK", cors_headers + [
-            ("Content-Type", "application/json; charset=utf-8"),
-        ])
-        return [payload]
-
-    elif path == "/health":
-        start_response("200 OK", [("Content-Type", "text/plain")])
-        return [b"OK"]
-
-    else:
-        start_response("404 Not Found", [("Content-Type", "text/plain")])
-        return [b"Not found"]
+@app.route("/health")
+def health():
+    return "OK"
