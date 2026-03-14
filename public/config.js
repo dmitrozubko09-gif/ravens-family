@@ -3,21 +3,10 @@
 // =============================================
 
 const CONFIG = {
-
-  // Назва сім'ї
   familyName: "Raven",
-
-  // URL твого бекенду (після деплою на Railway/Render вставити сюди)
-  // Приклад: "https://ravens-api.up.railway.app"
-  apiUrl: "http://localhost:8000",
-
-  // Посилання-запрошення на Discord сервер
+  apiUrl: "https://ravens-family.vercel.app/",
   discordInvite: "https://discord.gg/63XjMvhkUS",
-
-  // Discord Server ID (для Widget iframe)
   discordServerId: "1465060634696749231",
-
-  // Статистика (змінюй вручну)
   stats: {
     weeklyEarn: "$4.8M",
     heistsDone: 128,
