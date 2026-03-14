@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>☠ rāvenS — GTA V Family</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="scanlines"></div>
+<div class="noise"></div>
+
+<div class="content">
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">☠ rāvenS</div>
+    <button class="burger" id="burger" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
+      <a href="#about">Про сім'ю</a>
+      <a href="#members">Members</a>
+      <a href="#discord">Discord</a>
+      <a href="#rules">Rules</a>
+    </div>
+    <div class="nav-tag">GTA V · Los Santos</div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero">
+    <div class="hero-inner reveal">
+      <span class="skull-glow">☠</span>
+      <h1 class="title">rāvenS</h1>
+      <p class="subtitle">GTA V · Organized Crime Division · Los Santos</p>
+      <div class="divider"></div>
+      <p class="hero-desc">Ми не просто гравці — ми сім'я.<br>Разом беремо хейсти, захищаємо своїх і домінуємо в Los Santos.</p>
+      <blockquote class="hero-motto">"We watch. We wait. We strike."</blockquote>
+      <div class="hero-btns">
+        <a href="#discord" class="btn-primary">Приєднатись</a>
+        <a href="#about" class="btn-outline">Про нас</a>
+      </div>
+    </div>
+    <div class="hero-scroll"><span></span></div>
+  </header>
+
+  <!-- STATS -->
+  <section class="stats-bar">
+    <div class="stat-item reveal-up">
+      <span class="stat-num" id="stat-members">33</span>
+      <span class="stat-label">Members</span>
+    </div>
+    <div class="stat-item reveal-up" style="animation-delay:.1s">
+      <span class="stat-num" id="stat-online">–</span>
+      <span class="stat-label">Online</span>
+    </div>
+    <div class="stat-item reveal-up" style="animation-delay:.2s">
+      <span class="stat-num">$4.8M</span>
+      <span class="stat-label">Weekly Earn</span>
+    </div>
+    <div class="stat-item reveal-up" style="animation-delay:.3s">
+      <span class="stat-num">128</span>
+      <span class="stat-label">Heists Done</span>
+    </div>
+    <div class="stat-item reveal-up" style="animation-delay:.4s">
+      <span class="stat-num">Jan 2026</span>
+      <span class="stat-label">Founded</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <h2 class="section-title reveal">— Про сім'ю —</h2>
+
+    <div class="about-grid">
+
+      <!-- Біографія -->
+      <div class="about-card reveal-up">
+        <div class="about-card-icon">📜</div>
+        <h3>Біографія сім'ї Raven</h3>
+        <p>Сім'я Raven бере початок із північних земель, де виживали лише ті, хто вмів думати, чекати і бити точно. Їхній символ — ворон, птах війни й мудрості.</p>
+        <p>Першими представниками роду були найкращі й різносторонніми — не темі, хто б'ється першим у бій, а тими, хто знає, де і коли цей бій починається. Вони не кричали про силу — вони залишали сліди після тиші.</p>
+        <p>З покоління в покоління Raven підтримувались від єдиної логіці. Їхній принцип був простий: <em>"Краще один точний удар, ніж сто безцільних."</em></p>
+      </div>
+
+      <!-- Шлях -->
+      <div class="about-card reveal-up" style="animation-delay:.1s">
+        <div class="about-card-icon">⚔</div>
+        <h3>Шлях у новий світ</h3>
+        <p>З часом рід залишив Північ і розчинився серед тіньових організацій. Вони не створювали імперії — вони керували тими, хто їх створював.</p>
+        <p>У новому світі сім'я Ragnar Raven стала закритою структурою:</p>
+        <ul class="about-list">
+          <li>без публічності</li>
+          <li>без зайвих імен</li>
+          <li>без слабких ланок</li>
+        </ul>
+        <p>До сім'ї не потрапляють випадково. Тут не важлива кров — важлива відданість, холодна голова і дисципліна.</p>
+      </div>
+
+      <!-- Філософія -->
+      <div class="about-card reveal-up" style="animation-delay:.2s">
+        <div class="about-card-icon">🪶</div>
+        <h3>Філософія сім'ї</h3>
+        <p>Ми не герої і не монстри.<br>Ми — спостерігачі, стратеги, виконавці.</p>
+        <ul class="about-list">
+          <li>Закон — інструмент</li>
+          <li>Хаос — можливість</li>
+          <li>Інформація — зброя</li>
+        </ul>
+        <p>Сім'я не діє емоційно. Якщо Ragnar Raven прийшов — рішення вже прийняте.</p>
+      </div>
+
+      <!-- Репутація -->
+      <div class="about-card reveal-up" style="animation-delay:.3s">
+        <div class="about-card-icon">🦅</div>
+        <h3>Репутація</h3>
+        <p>У місті про них знають небагато, але ті, хто знає — говорять пошепки.</p>
+        <p>Їх не шукають у відкритих бійках за територію, але вони завжди з'являються після — коли хтось зникає, а хтось різко змінює позицію.</p>
+      </div>
+
+    </div>
+
+    <!-- Девіз -->
+    <div class="motto-block reveal-up">
+      <div class="motto-icon">🔵</div>
+      <p class="motto-label">Девіз сім'ї</p>
+      <blockquote class="motto-text">"We watch. We wait. We strike."</blockquote>
+      <p class="motto-sub">(Ми спостерігаємо. Ми чекаємо. Ми б'ємо.)</p>
+    </div>
+
+    <!-- Коротко -->
+    <div class="info-card reveal-up">
+      <div class="info-card-title">🔥 Коротко для RP-досьє</div>
+      <div class="info-grid">
+        <div class="info-row"><span class="info-label">Назва</span><span class="info-val">Raven</span></div>
+        <div class="info-row"><span class="info-label">Тип</span><span class="info-val">Закрита сім'я / клан</span></div>
+        <div class="info-row"><span class="info-label">Стиль</span><span class="info-val">Холодний, стратегічний</span></div>
+        <div class="info-row"><span class="info-label">Репутація</span><span class="info-val">Тіньова сила</span></div>
+        <div class="info-row"><span class="info-label">Символ</span><span class="info-val">Чорний ворон</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- MEMBERS -->
+  <section id="members" class="section">
+    <div class="section-header">
+      <h2 class="section-title reveal">— Crew Members —</h2>
+      <div class="online-badge">
+        <span class="dot"></span>
+        <span id="online-label">Live Discord Status</span>
+      </div>
+    </div>
+    <div class="members-grid" id="members-grid">
+      <div class="loading-msg">Завантаження учасників...</div>
+    </div>
+  </section>
+
+  <!-- DISCORD -->
+  <section id="discord" class="section">
+    <h2 class="section-title reveal">— Discord Server —</h2>
+    <div class="discord-wrapper">
+      <iframe
+        src="https://discord.com/widget?id=YOUR_SERVER_ID&theme=dark"
+        width="100%" height="400"
+        allowtransparency="true" frameborder="0"
+        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+        id="discord-widget" style="display:none"
+      ></iframe>
+      <div class="discord-placeholder" id="discord-placeholder">
+        <span style="font-size:40px">🎮</span>
+        <p class="discord-title">Discord Server</p>
+        <p class="discord-desc">Встав свій Server ID у <code>config.js</code></p>
+        <a href="https://discord.gg/63XjMvhkUS" class="btn-primary" target="_blank">Приєднатись до Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section id="rules" class="section">
+    <h2 class="section-title reveal">— Правила сім'ї —</h2>
+    <div class="rules-grid">
+      <div class="rule-card reveal-up">
+        <span class="rule-num">01</span>
+        <h3>Повага</h3>
+        <p>Поважай кожного члена сім'ї. Ми — команда.</p>
+      </div>
+      <div class="rule-card reveal-up" style="animation-delay:.1s">
+        <span class="rule-num">02</span>
+        <h3>Лояльність</h3>
+        <p>Не зраджуй своїх. Завжди прикривай спину товаришів.</p>
+      </div>
+      <div class="rule-card reveal-up" style="animation-delay:.2s">
+        <span class="rule-num">03</span>
+        <h3>Активність</h3>
+        <p>Мінімум 3 сесії на тиждень або попередь про відсутність.</p>
+      </div>
+      <div class="rule-card reveal-up" style="animation-delay:.3s">
+        <span class="rule-num">04</span>
+        <h3>Дисципліна</h3>
+        <p>Виконуй накази Boss та Underboss без питань у бою.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">☠ rāvenS</div>
+    <p class="footer-motto">"We watch. We wait. We strike."</p>
+    <p class="footer-text">© 2026 rāvenS Family · GTA V · Los Santos · All Rights Reserved</p>
+    <p class="footer-sub">Сайт не є офіційним продуктом Rockstar Games</p>
+  </footer>
+
+</div>
+
+<script src="config.js"></script>
+<script src="particles.js"></script>
+<script src="discord.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
