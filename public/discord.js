@@ -70,7 +70,7 @@
   }
 
   async function loadFromAPI() {
-    var apiUrl = (window.CONFIG && CONFIG.apiUrl) ? CONFIG.apiUrl : 'http://localhost:8000';
+    var apiUrl = (window.CONFIG && CONFIG.apiUrl) ? CONFIG.apiUrl : 'https://ravens-family.vercel.app/';
     try {
       var res = await fetch(apiUrl + '/api/members');
       if (!res.ok) throw new Error('HTTP ' + res.status);
