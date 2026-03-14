@@ -1,6 +1,13 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.py": {
+      "runtime": "vercel-python@3.0.7"
+    }
+  },
+  "routes": [
+    { "src": "/api/members", "dest": "/api/index.py" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
