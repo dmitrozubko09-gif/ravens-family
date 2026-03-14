@@ -9,10 +9,10 @@ const CONFIG = {
 
   // URL твого бекенду (після деплою на Railway/Render вставити сюди)
   // Приклад: "https://ravens-api.up.railway.app"
-  apiUrl: "http://localhost:8000",
+  apiUrl: "https://ravenfamily.up.railway.app",
 
   // Посилання-запрошення на Discord сервер
-  discordInvite: "https://discord.gg/ТВОЄ_ПОСИЛАННЯ",
+  discordInvite: "https://discord.gg/63XjMvhkUS",
 
   // Discord Server ID (для Widget iframe)
   discordServerId: "1465060634696749231",
