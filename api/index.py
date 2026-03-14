@@ -1,15 +1,10 @@
-"""
-Vercel serverless entrypoint для rāvenS API
-"""
-
-from http.server import BaseHTTPRequestHandler
 import json
 import os
 import urllib.request
 import urllib.error
 
-BOT_TOKEN   = os.environ.get("DISCORD_BOT_TOKEN", "")
-GUILD_ID    = os.environ.get("DISCORD_GUILD_ID", "")
+BOT_TOKEN = os.environ.get("DISCORD_BOT_TOKEN", "")
+GUILD_ID = os.environ.get("DISCORD_GUILD_ID", "")
 ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
 
 RANK_MAP = {
@@ -50,7 +45,6 @@ def get_members():
     roles_data = discord_request(f"/guilds/{GUILD_ID}/roles")
     if not roles_data:
         return []
-
     role_id_map = {r["id"]: r["name"] for r in roles_data}
     members_data = discord_request(f"/guilds/{GUILD_ID}/members?limit=1000")
     if not members_data:
@@ -61,10 +55,8 @@ def get_members():
         user = m.get("user", {})
         if user.get("bot"):
             continue
-
         member_rank = None
         member_roles = [role_id_map.get(rid, "") for rid in m.get("roles", [])]
-
         for role_name in member_roles:
             if role_name in SKIP_ROLES:
                 continue
@@ -74,10 +66,8 @@ def get_members():
                     member_rank = info
                 elif RANK_ORDER.index(info["rank"]) < RANK_ORDER.index(member_rank["rank"]):
                     member_rank = info
-
         if not member_rank:
             continue
-
         avatar_hash = user.get("avatar") or m.get("avatar")
         if avatar_hash:
             if m.get("avatar"):
@@ -86,9 +76,7 @@ def get_members():
                 avatar_url = f"https://cdn.discordapp.com/avatars/{user['id']}/{avatar_hash}.png?size=64"
         else:
             avatar_url = None
-
         display_name = m.get("nick") or user.get("global_name") or user.get("username", "Unknown")
-
         result.append({
             "id":        user.get("id"),
             "name":      display_name,
@@ -98,7 +86,6 @@ def get_members():
             "rankLabel": member_rank["label"],
             "roles":     [r for r in member_roles if r and r not in SKIP_ROLES],
         })
-
     result.sort(key=lambda x: RANK_ORDER.index(x["rank"]) if x["rank"] in RANK_ORDER else 99)
     return result
 
@@ -113,46 +100,38 @@ def get_online_status():
     return {"online": 0, "total": 0}
 
 
-class handler(BaseHTTPRequestHandler):
-    def log_message(self, format, *args):
-        pass
+def app(environ, start_response):
+    path = environ.get("PATH_INFO", "/")
+    method = environ.get("REQUEST_METHOD", "GET")
 
-    def send_cors(self):
-        self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
-        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.send_header("Cache-Control", "no-cache")
+    cors_headers = [
+        ("Access-Control-Allow-Origin", ALLOWED_ORIGIN),
+        ("Access-Control-Allow-Methods", "GET, OPTIONS"),
+        ("Access-Control-Allow-Headers", "Content-Type"),
+        ("Cache-Control", "no-cache"),
+    ]
 
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_cors()
-        self.end_headers()
+    if method == "OPTIONS":
+        start_response("200 OK", cors_headers)
+        return [b""]
 
-    def do_GET(self):
-        path = self.path.split("?")[0]
+    if path in ("/api/members", "/"):
+        members = get_members()
+        counts = get_online_status()
+        payload = json.dumps({
+            "members": members,
+            "online":  counts["online"],
+            "total":   counts["total"],
+        }, ensure_ascii=False).encode("utf-8")
+        start_response("200 OK", cors_headers + [
+            ("Content-Type", "application/json; charset=utf-8"),
+        ])
+        return [payload]
 
-        if path in ("/api/members", "/"):
-            members = get_members()
-            counts  = get_online_status()
-            payload = json.dumps({
-                "members": members,
-                "online":  counts["online"],
-                "total":   counts["total"],
-            }, ensure_ascii=False)
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json; charset=utf-8")
-            self.send_cors()
-            self.end_headers()
-            self.wfile.write(payload.encode("utf-8"))
+    elif path == "/health":
+        start_response("200 OK", [("Content-Type", "text/plain")])
+        return [b"OK"]
 
-        elif path == "/health":
-            self.send_response(200)
-            self.send_header("Content-Type", "text/plain")
-            self.send_cors()
-            self.end_headers()
-            self.wfile.write(b"OK")
-
-        else:
-            self.send_response(404)
-            self.end_headers()
-            self.wfile.write(b"Not found")
+    else:
+        start_response("404 Not Found", [("Content-Type", "text/plain")])
+        return [b"Not found"]
