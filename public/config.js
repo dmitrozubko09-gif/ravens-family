@@ -5,11 +5,11 @@
 const CONFIG = {
 
   // Назва сім'ї
-  familyName: "rāvenS",
+  familyName: "Raven",
 
   // URL твого бекенду (після деплою на Railway/Render вставити сюди)
   // Приклад: "https://ravens-api.up.railway.app"
-  apiUrl: "https://ravenfamily.up.railway.app",
+  apiUrl: "http://localhost:8000",
 
   // Посилання-запрошення на Discord сервер
   discordInvite: "https://discord.gg/63XjMvhkUS",
